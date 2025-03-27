@@ -9,7 +9,7 @@ export function Header() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
         <div className="flex h-14 items-center justify-between">
           <div className="flex items-center">
-            <Link href="/" className="flex items-center space-x-2">
+            <Link href="/" className="flex items-center space-x-3">
               <Image
                 src="/paperfox-logo.svg"
                 alt="Paperfox"
@@ -19,6 +19,7 @@ export function Header() {
                 priority
                 unoptimized
               />
+              <span className="font-semibold text-lg">PaperFox</span>
             </Link>
           </div>
           <div className="flex items-center space-x-6">
