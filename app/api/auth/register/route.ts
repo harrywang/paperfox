@@ -1,39 +1,69 @@
 import { NextResponse } from "next/server";
-import bcrypt from "bcryptjs";
 import { prisma } from "@/lib/prisma";
+import bcrypt from "bcryptjs";
+import { sendVerificationEmail } from "@/lib/postmark";
+import crypto from "crypto";
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json();
-    const { email, password, name } = body;
+    const { email, password, name } = await request.json();
 
-    if (!email || !password || !name) {
-      return new NextResponse("Missing fields", { status: 400 });
+    if (!email || !password) {
+      return NextResponse.json(
+        { error: "Email and password are required" },
+        { status: 400 }
+      );
     }
 
-    const exist = await prisma.user.findUnique({
-      where: {
-        email,
-      },
+    // Check if user already exists
+    const existingUser = await prisma.user.findUnique({
+      where: { email },
     });
 
-    if (exist) {
-      return new NextResponse("Email already exists", { status: 400 });
+    if (existingUser) {
+      return NextResponse.json(
+        { error: "User already exists" },
+        { status: 400 }
+      );
     }
 
+    // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
 
+    // Create user
     const user = await prisma.user.create({
       data: {
         email,
-        name,
         password: hashedPassword,
+        name,
+        emailVerified: null, // User needs to verify email
       },
     });
 
-    return NextResponse.json(user);
+    // Generate verification token
+    const token = crypto.randomBytes(32).toString("hex");
+    const expires = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours
+
+    // Store verification token
+    await prisma.verificationToken.create({
+      data: {
+        identifier: email,
+        token,
+        expires,
+      },
+    });
+
+    // Send verification email
+    await sendVerificationEmail(email, token);
+
+    return NextResponse.json({
+      message: "Registration successful. Please check your email to verify your account.",
+    });
   } catch (error) {
-    console.error("[REGISTRATION_ERROR]", error);
-    return new NextResponse("Internal error", { status: 500 });
+    console.error("Registration error:", error);
+    return NextResponse.json(
+      { error: "Failed to register user" },
+      { status: 500 }
+    );
   }
 } 

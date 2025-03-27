@@ -56,6 +56,7 @@ async function createAdminUser(email: string, password: string) {
         email,
         password: hashedPassword,
         role: "ADMIN",
+        emailVerified: new Date(),
       },
     });
 
@@ -82,7 +83,7 @@ async function resetDatabase() {
 
     // Get admin credentials
     const adminEmail =
-      (await promptQuestion("Enter admin email (default: admin@takin.ai): ")) || "admin@takin.ai";
+      (await promptQuestion("Enter admin email (default: admin@paperfox.ai): ")) || "admin@paperfox.ai";
     const adminPassword =
       (await promptQuestion("Enter admin password (default: demo): ")) || "demo";
 

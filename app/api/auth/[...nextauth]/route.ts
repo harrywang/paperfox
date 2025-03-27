@@ -1,4 +1,4 @@
-import { PrismaAdapter } from "@auth/prisma-adapter";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
@@ -28,6 +28,10 @@ const handler = NextAuth({
           throw new Error("Invalid credentials");
         }
 
+        if (!user.emailVerified) {
+          throw new Error("Please verify your email before signing in");
+        }
+
         const isCorrectPassword = await bcrypt.compare(
           credentials.password,
           user.password
@@ -49,7 +53,8 @@ const handler = NextAuth({
     strategy: "jwt"
   },
   pages: {
-    signIn: "/auth/signin",
+    signIn: "/signin",
+    error: "/signin",
   },
   callbacks: {
     async jwt({ token, user }) {
