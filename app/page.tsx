@@ -36,9 +36,13 @@ export default function HomePage() {
         <section className="relative overflow-hidden bg-gradient-to-b from-white to-gray-50">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
             <div className="relative py-16 sm:py-24">
-              <div className="mx-auto max-w-2xl text-center">
-                <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-                  Peer Review, Reimagined
+              <div className="mx-auto max-w-3xl text-center">
+                <h1 className="text-3xl font-bold tracking-tight sm:text-5xl">
+                  <span className="text-gray-900">Paper Management System</span>
+                  <br />
+                  <span className="bg-gradient-to-r from-gray-700 via-gray-800 to-gray-900 bg-clip-text text-transparent">
+                    Reimagined
+                  </span>
                 </h1>
                 <p className="mt-6 text-lg leading-8 text-gray-600">
                   Streamline your academic paper review process with PaperFox. Collaborate seamlessly, track changes, and manage your research papers all in one place.
@@ -50,7 +54,7 @@ export default function HomePage() {
                     </Link>
                   </Button>
                   <Button asChild variant="outline" size="lg">
-                    <Link href="/about">
+                    <Link href="#features">
                       Learn More
                     </Link>
                   </Button>
@@ -61,7 +65,7 @@ export default function HomePage() {
         </section>
 
         {/* Features Section */}
-        <section className="py-24 sm:py-32">
+        <section id="features" className="py-24 sm:py-32">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
             <div className="mx-auto max-w-2xl lg:text-center">
               <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">

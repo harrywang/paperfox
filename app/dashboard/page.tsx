@@ -44,7 +44,7 @@ export default function DashboardPage() {
       <div className="hidden md:block">
         <div className="border-b">
           <div className="flex h-16 items-center px-4 lg:px-8">
-            <Link href="/" className="flex items-center space-x-2 mr-6">
+            <Link href="/" className="flex items-center space-x-3 mr-6">
               <Image
                 src="/paperfox-logo.svg"
                 alt="Paperfox"
@@ -53,6 +53,7 @@ export default function DashboardPage() {
                 className="dark:invert"
                 priority
               />
+              <span className="font-semibold text-lg">PaperFox</span>
             </Link>
             <MainNav className="mx-6" />
             <div className="ml-auto flex items-center space-x-4">
