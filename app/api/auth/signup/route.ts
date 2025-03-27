@@ -6,7 +6,7 @@ import crypto from "crypto";
 
 export async function POST(request: Request) {
   try {
-    const { email, password, name } = await request.json();
+    const { email, password } = await request.json();
 
     if (!email || !password) {
       return NextResponse.json(
@@ -21,10 +21,37 @@ export async function POST(request: Request) {
     });
 
     if (existingUser) {
-      return NextResponse.json(
-        { error: "User already exists" },
-        { status: 400 }
-      );
+      if (existingUser.emailVerified) {
+        return NextResponse.json(
+          { error: "An account with this email already exists" },
+          { status: 400 }
+        );
+      } else {
+        // User exists but email not verified, resend verification email
+        const token = crypto.randomBytes(32).toString("hex");
+        const expires = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours
+
+        // Delete any existing verification tokens for this email
+        await prisma.verificationToken.deleteMany({
+          where: { identifier: email },
+        });
+
+        // Create new verification token
+        await prisma.verificationToken.create({
+          data: {
+            identifier: email,
+            token,
+            expires,
+          },
+        });
+
+        // Send verification email
+        await sendVerificationEmail(email, token);
+
+        return NextResponse.json({
+          message: "Verification email resent. Please check your email to verify your account.",
+        });
+      }
     }
 
     // Hash password
@@ -35,7 +62,6 @@ export async function POST(request: Request) {
       data: {
         email,
         password: hashedPassword,
-        name,
         emailVerified: null, // User needs to verify email
       },
     });

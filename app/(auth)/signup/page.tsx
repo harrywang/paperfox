@@ -34,11 +34,13 @@ export default function SignUpPage() {
         }),
       });
 
+      const data = await response.json();
+
       if (!response.ok) {
-        const data = await response.json();
         throw new Error(data.error || "Something went wrong");
       }
 
+      // Redirect to verification sent page for both new users and unverified existing users
       router.push("/verify-email-sent");
     } catch (error) {
       setError(error instanceof Error ? error.message : "An error occurred");
