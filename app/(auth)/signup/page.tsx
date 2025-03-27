@@ -6,12 +6,15 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Icons } from "@/components/icons";
+import { PasswordRequirements } from "@/components/password-requirements";
 import Link from "next/link";
 
 export default function SignUpPage() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [password, setPassword] = useState("");
+  const [showRequirements, setShowRequirements] = useState(false);
 
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -21,6 +24,21 @@ export default function SignUpPage() {
     const formData = new FormData(event.currentTarget);
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
+
+    // Check if password meets all requirements
+    const requirements = [
+      (p: string) => p.length >= 8,
+      (p: string) => /[A-Z]/.test(p),
+      (p: string) => /[a-z]/.test(p),
+      (p: string) => /[0-9]/.test(p),
+      (p: string) => /[!@#$%^&*(),.?":{}|<>]/.test(p),
+    ];
+
+    if (!requirements.every(req => req(password))) {
+      setError("Password does not meet all requirements");
+      setIsLoading(false);
+      return;
+    }
 
     try {
       const response = await fetch("/api/auth/signup", {
@@ -84,7 +102,12 @@ export default function SignUpPage() {
               autoComplete="new-password"
               disabled={isLoading}
               required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              onFocus={() => setShowRequirements(true)}
+              onBlur={() => setShowRequirements(false)}
             />
+            <PasswordRequirements password={password} visible={showRequirements} />
           </div>
           {error && (
             <div className="text-sm text-red-500">
