@@ -39,7 +39,7 @@ export default function SignUpPage() {
         throw new Error(data.error || "Something went wrong");
       }
 
-      router.push("/signin");
+      router.push("/verify-email-sent");
     } catch (error) {
       setError(error instanceof Error ? error.message : "An error occurred");
     } finally {

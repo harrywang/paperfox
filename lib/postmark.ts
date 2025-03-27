@@ -10,7 +10,7 @@ export async function sendVerificationEmail(email: string, token: string) {
   const verificationUrl = `${process.env.NEXT_PUBLIC_APP_URL}/verify-email?token=${token}`;
   
   await client.sendEmail({
-    From: "noreply@paperfox.com",
+    From: "noreply@paperfox.ai",
     To: email,
     Subject: "Verify your email address",
     HtmlBody: `
@@ -38,7 +38,7 @@ export async function sendPasswordResetEmail(email: string, token: string) {
   const resetUrl = `${process.env.NEXT_PUBLIC_APP_URL}/reset-password?token=${token}`;
   
   await client.sendEmail({
-    From: "noreply@paperfox.com",
+    From: "noreply@paperfox.ai",
     To: email,
     Subject: "Reset your password",
     HtmlBody: `
