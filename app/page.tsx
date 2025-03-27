@@ -53,11 +53,6 @@ export default function HomePage() {
                       Get Started
                     </Link>
                   </Button>
-                  <Button asChild variant="outline" size="lg">
-                    <Link href="#features">
-                      Learn More
-                    </Link>
-                  </Button>
                 </div>
               </div>
             </div>
