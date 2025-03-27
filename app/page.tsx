@@ -14,7 +14,7 @@ export default function HomePage() {
               Welcome to PaperFox
             </h1>
             <p className="mt-6 text-lg leading-8 text-gray-600">
-              Your personal paper management system
+              Peer Review, Reimagined
             </p>
           </div>
         </section>

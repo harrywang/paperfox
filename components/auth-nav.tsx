@@ -42,7 +42,7 @@ export function AuthNav() {
               <Link href="/settings">Settings</Link>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={() => signOut()}>
+            <DropdownMenuItem onClick={() => signOut({ callbackUrl: "/" })}>
               Log out
             </DropdownMenuItem>
           </DropdownMenuContent>

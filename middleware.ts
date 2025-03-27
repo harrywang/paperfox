@@ -1,4 +1,6 @@
 import { NextResponse } from "next/server";
+import { getToken } from "next-auth/jwt";
+import { NextRequest } from "next/server";
 
 // Check if setup is needed
 async function checkSetup() {
@@ -12,7 +14,7 @@ async function checkSetup() {
   }
 }
 
-export default async function middleware(request: Request) {
+export default async function middleware(request: NextRequest) {
   // Skip middleware for non-matching paths
   if (!request.url.match(config.matcher[0])) {
     return NextResponse.next();
@@ -29,6 +31,17 @@ export default async function middleware(request: Request) {
   // If setup is not needed and on setup page, redirect to home
   if (!needsSetup && request.url.includes("/setup")) {
     return NextResponse.redirect(new URL("/", request.url));
+  }
+
+  // Check authentication for dashboard routes
+  if (request.url.includes("/dashboard")) {
+    const token = await getToken({ req: request });
+    
+    if (!token) {
+      const signInUrl = new URL("/signin", request.url);
+      signInUrl.searchParams.set("callbackUrl", request.url);
+      return NextResponse.redirect(signInUrl);
+    }
   }
 
   // For all other routes, allow access
