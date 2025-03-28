@@ -98,9 +98,9 @@ export default function ForgotPasswordPage() {
         </form>
       )}
       <p className="px-8 text-center text-sm text-muted-foreground">
-        Don't have an account?{" "}
-        <Link href="/signup" className="underline underline-offset-4 hover:text-primary">
-          Sign up
+        Remember your password?{" "}
+        <Link href="/signin" className="underline underline-offset-4 hover:text-primary">
+          Sign in
         </Link>
       </p>
     </div>

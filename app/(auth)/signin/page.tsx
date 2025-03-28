@@ -36,7 +36,7 @@ export default function SignInPage() {
         router.push("/dashboard");
         router.refresh();
       }
-    } catch (error) {
+    } catch (_error) {
       setError("An error occurred. Please try again.");
     } finally {
       setIsLoading(false);

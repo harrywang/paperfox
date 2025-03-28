@@ -16,7 +16,6 @@ export default function SignUpPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showRequirements, setShowRequirements] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Check if password meets all requirements
   const requirements = [
@@ -31,12 +30,10 @@ export default function SignUpPage() {
 
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setIsSubmitting(true);
     
     if (!passwordMeetsRequirements) {
       setError("Password does not meet all requirements");
       setShowRequirements(true);
-      setIsSubmitting(false);
       return;
     }
 
@@ -73,7 +70,6 @@ export default function SignUpPage() {
       setError(error instanceof Error ? error.message : "An error occurred");
     } finally {
       setIsLoading(false);
-      setIsSubmitting(false);
     }
   }
 

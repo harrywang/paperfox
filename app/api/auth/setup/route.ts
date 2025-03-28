@@ -26,7 +26,7 @@ export async function POST(request: Request) {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Create the first admin user
-    const user = await prisma.user.create({
+    await prisma.user.create({
       data: {
         email,
         password: hashedPassword,
