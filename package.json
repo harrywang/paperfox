@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "PRISMA_MIGRATE_SKIP_GENERATE=true PRISMA_SCHEMA_DISABLE_ADVISORY_LOCK=true prisma migrate deploy && next build",
+    "build": "prisma generate && PRISMA_SCHEMA_DISABLE_ADVISORY_LOCK=true prisma migrate deploy && next build",
     "reset-db": "tsx scripts/reset-db.ts",
     "start": "next start",
     "lint": "next lint",
