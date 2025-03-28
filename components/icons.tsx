@@ -7,6 +7,9 @@ import {
   Bell,
   Shield,
   Check,
+  Brain,
+  Palette,
+  Workflow,
   type LucideIcon,
 } from "lucide-react";
 
@@ -21,4 +24,7 @@ export const Icons = {
   bell: Bell,
   shield: Shield,
   check: Check,
+  brain: Brain,
+  palette: Palette,
+  workflow: Workflow,
 }; 

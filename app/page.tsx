@@ -6,24 +6,24 @@ import { Icons } from "@/components/icons";
 
 const features = [
   {
-    name: 'Smart Paper Management',
-    description: 'Organize and manage your academic papers with our intuitive interface. Track submissions, revisions, and feedback all in one place.',
-    icon: Icons.fileText,
+    name: '🤖 AI at the Core',
+    description: 'From reviewer suggestions to feedback summarization, PaperFox uses AI to reduce busywork and enhance decision-making.',
+    icon: Icons.brain,
   },
   {
-    name: 'Collaborative Review',
-    description: 'Work seamlessly with co-authors and reviewers. Share feedback, track changes, and maintain version history effortlessly.',
-    icon: Icons.users,
+    name: '🎨 Design That Delights',
+    description: 'Built with clarity and elegance, PaperFox brings a thoughtful, modern UI to academic workflows — finally.',
+    icon: Icons.palette,
   },
   {
-    name: 'Real-time Updates',
-    description: 'Stay informed with instant notifications about paper status, review requests, and important deadlines.',
-    icon: Icons.bell,
+    name: '🔓 Truly Open-Source',
+    description: 'No vendor lock-in. Fully extensible. A transparent platform you can trust, adapt, and improve with your community.',
+    icon: Icons.gitHub,
   },
   {
-    name: 'Secure & Private',
-    description: 'Your research is protected with enterprise-grade security. We ensure your work remains confidential and accessible only to authorized users.',
-    icon: Icons.shield,
+    name: '🎯 Built for the Way You Work',
+    description: 'Flexible workflows, modular components, and seamless collaboration — whether you\'re a solo researcher or an editorial team.',
+    icon: Icons.workflow,
   },
 ];
 
@@ -38,14 +38,10 @@ export default function HomePage() {
             <div className="relative py-16 sm:py-24">
               <div className="mx-auto max-w-3xl text-center">
                 <h1 className="text-3xl font-bold tracking-tight sm:text-5xl">
-                  <span className="text-gray-900">Paper Management System</span>
-                  <br />
-                  <span className="bg-gradient-to-r from-gray-700 via-gray-800 to-gray-900 bg-clip-text text-transparent">
-                    Reimagined
-                  </span>
+                  <span className="text-gray-900">Paper Management, Reimagined</span>
                 </h1>
                 <p className="mt-6 text-lg leading-8 text-gray-600">
-                  Streamline your academic paper review process with PaperFox. Collaborate seamlessly, track changes, and manage your research papers all in one place.
+                Open-source. Beautifully designed. AI-powered.
                 </p>
                 <div className="mt-10 flex items-center justify-center gap-x-6">
                   <Button asChild size="lg">
@@ -64,18 +60,17 @@ export default function HomePage() {
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
             <div className="mx-auto max-w-2xl lg:text-center">
               <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-                Everything you need to manage your papers
+              Academics Deserve Better Tools
               </p>
               <p className="mt-6 text-lg leading-8 text-gray-600">
-                PaperFox provides a comprehensive platform for managing your academic papers, from submission to publication.
+              PaperFox delivers the modern, AI-powered, open-source platform academics have been waiting for.
               </p>
             </div>
             <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
-              <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-4">
+              <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-2">
                 {features.map((feature) => (
                   <div key={feature.name} className="flex flex-col">
-                    <dt className="flex items-center gap-x-3 text-base font-semibold leading-7 text-gray-900">
-                      <feature.icon className="h-5 w-5 flex-none text-primary" aria-hidden="true" />
+                    <dt className="flex items-center gap-x-3 text-xl font-semibold leading-7 text-gray-900">
                       {feature.name}
                     </dt>
                     <dd className="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-600">
