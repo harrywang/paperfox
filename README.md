@@ -25,6 +25,7 @@ openssl rand -base64 32
 3. Run Prisma migrations:
 ```bash
 pnpm prisma generate
+pnpm prisma migrate dev --name init
 pnpm prisma migrate dev
 ```
 

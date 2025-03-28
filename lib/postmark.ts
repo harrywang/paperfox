@@ -1,15 +1,15 @@
-import postmark from "postmark";
+import { ServerClient } from "postmark";
 
 if (!process.env.POSTMARK_API_KEY) {
   throw new Error("POSTMARK_API_KEY is not set");
 }
 
-const client = new postmark.ServerClient(process.env.POSTMARK_API_KEY);
+export const postmarkClient = new ServerClient(process.env.POSTMARK_API_KEY);
 
 export async function sendVerificationEmail(email: string, token: string) {
   const verificationUrl = `${process.env.NEXT_PUBLIC_APP_URL}/verify-email?token=${token}`;
   
-  await client.sendEmail({
+  await postmarkClient.sendEmail({
     From: "noreply@paperfox.ai",
     To: email,
     Subject: "Verify your email address",
@@ -37,7 +37,7 @@ export async function sendVerificationEmail(email: string, token: string) {
 export async function sendPasswordResetEmail(email: string, token: string) {
   const resetUrl = `${process.env.NEXT_PUBLIC_APP_URL}/reset-password?token=${token}`;
   
-  await client.sendEmail({
+  await postmarkClient.sendEmail({
     From: "noreply@paperfox.ai",
     To: email,
     Subject: "Reset your password",

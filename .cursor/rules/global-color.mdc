@@ -1,0 +1,21 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+
+# Your rule content
+
+use
+
+@layer components {
+  .message-error {
+    @apply text-rose-500/90;
+  }
+
+  .message-success {
+    @apply text-emerald-500/90;
+  }
+}
+
+for msg colors

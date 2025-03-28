@@ -79,6 +79,11 @@ export default function SignInPage() {
               disabled={isLoading}
               required
             />
+            <div className="text-right">
+              <Link href="/forgot-password" className="text-sm text-muted-foreground hover:text-primary">
+                Forgot password?
+              </Link>
+            </div>
           </div>
           {error && (
             <div className="text-sm text-red-500">

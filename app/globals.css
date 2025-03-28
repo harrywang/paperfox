@@ -121,3 +121,13 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer components {
+  .message-error {
+    @apply text-rose-500/90;
+  }
+
+  .message-success {
+    @apply text-emerald-500/90;
+  }
+}

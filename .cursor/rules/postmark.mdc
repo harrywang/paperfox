@@ -1,0 +1,10 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+
+# Your rule content
+
+- POSTMARK_API_KEY is the env variable for postmark
+- From should be support@paperfox.ai

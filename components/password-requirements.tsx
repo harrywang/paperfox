@@ -47,7 +47,7 @@ export function PasswordRequirements({ password, visible, className }: PasswordR
             key={requirement.label}
             className={cn(
               "flex items-center gap-2",
-              isValid ? "text-green-600" : "text-gray-500"
+              isValid ? "message-success" : "text-gray-500"
             )}
           >
             {isValid ? (
