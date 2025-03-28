@@ -8,10 +8,9 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Overview } from "@/components/dashboard/overview"
 import { RecentSales } from "@/components/dashboard/recent-sales"
-import { OverviewSection } from "@/components/dashboard/overview-section"
 import { MainNav } from "@/components/dashboard/main-nav"
-import { TeamSwitcher } from "@/components/dashboard/team-switcher"
 import { Sidebar } from "@/components/dashboard/sidebar"
 import { AuthNav } from "@/components/auth-nav"
 import Image from "next/image"
@@ -175,7 +174,7 @@ export default function DashboardPage() {
                     </Card>
                   </div>
                   <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-                    <OverviewSection />
+                    <Overview />
                     <Card className="col-span-3">
                       <CardHeader>
                         <CardTitle>Recent Sales</CardTitle>

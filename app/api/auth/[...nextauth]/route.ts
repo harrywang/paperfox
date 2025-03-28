@@ -1,5 +1,5 @@
+import NextAuth from "next-auth/next";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { prisma } from "@/lib/prisma";
@@ -20,31 +20,33 @@ const handler = NextAuth({
 
         const user = await prisma.user.findUnique({
           where: {
-            email: credentials.email
-          }
+            email: credentials.email,
+          },
         });
 
         if (!user || !user.password) {
           throw new Error("Invalid credentials");
         }
 
-        if (!user.emailVerified) {
-          throw new Error("Please verify your email before signing in");
-        }
-
-        const isCorrectPassword = await bcrypt.compare(
+        const isValid = await bcrypt.compare(
           credentials.password,
           user.password
         );
 
-        if (!isCorrectPassword) {
+        if (!isValid) {
           throw new Error("Invalid credentials");
+        }
+
+        if (!user.email) {
+          return null;
         }
 
         return {
           id: user.id,
-          email: user.email,
           name: user.name,
+          email: user.email,
+          image: user.image,
+          role: user.role,
         };
       }
     })
@@ -54,18 +56,21 @@ const handler = NextAuth({
   },
   pages: {
     signIn: "/signin",
+    signUp: "/signup",
     error: "/signin",
   },
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
+        token.role = user.role;
       }
       return token;
     },
     async session({ session, token }) {
       if (session.user) {
-        session.user.id = token.id as string;
+        session.user.id = token.id;
+        session.user.role = token.role;
       }
       return session;
     }
