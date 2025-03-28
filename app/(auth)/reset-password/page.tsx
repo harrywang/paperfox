@@ -87,7 +87,7 @@ export default function ResetPasswordPage() {
             <PasswordRequirements password={password} visible={showRequirements} />
           </div>
           {error && (
-            <div className="text-sm text-red-500">
+            <div className="text-sm message-error">
               {error}
             </div>
           )}

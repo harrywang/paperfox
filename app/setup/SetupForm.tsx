@@ -75,7 +75,7 @@ export default function SetupForm() {
           />
         </div>
         {error && (
-          <div className="text-sm text-red-500">
+          <div className="text-sm message-error">
             {error}
           </div>
         )}

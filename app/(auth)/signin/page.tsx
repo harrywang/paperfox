@@ -86,7 +86,7 @@ export default function SignInPage() {
             </div>
           </div>
           {error && (
-            <div className="text-sm text-red-500">
+            <div className="text-sm message-error">
               {error}
             </div>
           )}

@@ -16,6 +16,7 @@ export default function SignUpPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showRequirements, setShowRequirements] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Check if password meets all requirements
   const requirements = [
@@ -30,10 +31,12 @@ export default function SignUpPage() {
 
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    setIsSubmitting(true);
     
     if (!passwordMeetsRequirements) {
       setError("Password does not meet all requirements");
       setShowRequirements(true);
+      setIsSubmitting(false);
       return;
     }
 
@@ -55,15 +58,22 @@ export default function SignUpPage() {
       const data = await response.json();
 
       if (!response.ok) {
+        if (data.error === "An account with this email already exists") {
+          throw new Error("This email is already registered. Please sign in instead.");
+        } else if (data.message?.includes("verification email resent")) {
+          // This is actually a success case for unverified users
+          router.push("/verify-email-sent");
+          return;
+        }
         throw new Error(data.error || "Something went wrong");
       }
 
-      // Redirect to verification sent page for both new users and unverified existing users
       router.push("/verify-email-sent");
     } catch (error) {
       setError(error instanceof Error ? error.message : "An error occurred");
     } finally {
       setIsLoading(false);
+      setIsSubmitting(false);
     }
   }
 
@@ -112,8 +122,21 @@ export default function SignUpPage() {
             />
           </div>
           {error && (
-            <div className="text-sm message-error">
-              {error}
+            <div className="flex flex-col gap-2 text-sm">
+              <div className="message-error">
+                {error}
+              </div>
+              {error.includes("already registered") && (
+                <div className="text-muted-foreground">
+                  <Link href="/signin" className="underline underline-offset-4 hover:text-primary">
+                    Sign in
+                  </Link>
+                  {" "}or{" "}
+                  <Link href="/forgot-password" className="underline underline-offset-4 hover:text-primary">
+                    reset your password
+                  </Link>
+                </div>
+              )}
             </div>
           )}
           <Button disabled={isLoading}>
