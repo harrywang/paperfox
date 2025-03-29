@@ -5,7 +5,7 @@ import { NextRequest } from "next/server";
 // Check if setup is needed
 async function checkSetup() {
   try {
-    const response = await fetch(new URL("/api/setup/check", process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"));
+    const response = await fetch(new URL("/api/auth/setup/check", process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"));
     const data = await response.json();
     return data.needsSetup;
   } catch (error) {
