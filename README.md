@@ -1,69 +1,81 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Paperfox
+
+Paperfox is an AI-first modern paper management system. 
+
+## Tech Stack
+
+- **Framework**: Next.js 14 (App Router)
+- **Authentication**: NextAuth.js
+- **Database**: PostgreSQL with Prisma ORM
+- **Styling**: Tailwind CSS
+- **UI Components**: shadcn/ui
+- **Email Service**: Postmark
+- **Package Manager**: pnpm
 
 ## Prerequisites
 
-- Node.js 18+ and pnpm
-- PostgreSQL database
-- [Prisma CLI](https://www.prisma.io/docs/getting-started/installation)
+- Node.js 18.x or later
+- pnpm 8.x or later
+- PostgreSQL 16.x or later
+- Postmark account (for email functionality)
 
-## Database Setup
+## Environment Variables
 
-1. Create a PostgreSQL database:
-```bash
-createdb paperfox
+Create a `.env` file in the root directory with the following variables:
+
+```env
+# Database
+DATABASE_URL="postgresql://user:password@localhost:5432/paperfox"
+
+# NextAuth
+NEXTAUTH_URL="http://localhost:3000"
+NEXTAUTH_SECRET="your-secret-key"
+
+# Postmark
+POSTMARK_API_KEY="your-postmark-api-key"
+
+# App URL (for development)
+NEXT_PUBLIC_APP_URL="http://localhost:3000"
 ```
 
-2. Set up your environment variables:
-```bash
-cp .env.example .env
-```
-Then update the `.env` file with your database credentials and generate a secure `NEXTAUTH_SECRET`:
-```bash
-openssl rand -base64 32
-```
+## Local Development
 
-3. Run Prisma migrations:
-```bash
-pnpm prisma generate
-pnpm prisma migrate dev --name init
-pnpm prisma migrate dev
-```
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/yourusername/paperfox.git
+   cd paperfox
+   ```
 
-## Getting Started
+2. **Install dependencies**
+   ```bash
+   pnpm install
+   ```
 
-First, run the development server:
+3. **Set up the database**
+   ```bash
+   # Create and apply migrations
+   pnpm prisma migrate dev
+   ```
 
-```bash
-pnpm dev
-```
+4. **Start the development server**
+   ```bash
+   pnpm dev
+   ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+5. **Initial Setup**
+   - Visit `http://localhost:3000/setup`
+   - Create your first admin account
+   - After setup, you can sign in and access the dashboard
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Deployment
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The application is designed to be deployed on Vercel or similar platforms that support Next.js applications. Make sure to:
 
-## Authentication
+1. Set up all required environment variables
+2. Configure the database connection (we use Neon)
+3. Set up Postmark for email functionality (configure your domain and sender signature)
 
-The project uses NextAuth.js with Prisma adapter for authentication. You can:
+## License
 
-1. Register a new account at `/auth/register`
-2. Sign in at `/auth/signin`
-3. Protected routes are automatically redirected to the sign-in page
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-- [Prisma Documentation](https://www.prisma.io/docs) - learn about Prisma ORM.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project is licensed under the MIT License - see the LICENSE file for details.
 
