@@ -13,9 +13,14 @@ export async function POST(request: Request) {
       );
     }
 
-    // Check if any users exist
-    const userCount = await prisma.user.count();
-    if (userCount > 0) {
+    // Check if admin user exists
+    const adminUser = await prisma.user.findFirst({
+      where: {
+        role: "ADMIN"
+      }
+    });
+
+    if (adminUser) {
       return NextResponse.json(
         { error: "Setup has already been completed" },
         { status: 400 }

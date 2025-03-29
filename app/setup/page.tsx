@@ -5,11 +5,15 @@ import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 
 export default async function SetupPage() {
-  // Check if setup is needed
-  const userCount = await prisma.user.count();
+  // Check if admin user exists
+  const adminUser = await prisma.user.findFirst({
+    where: {
+      role: "ADMIN"
+    }
+  });
   
-  // If users exist, redirect to home
-  if (userCount > 0) {
+  // If admin user exists, redirect to home
+  if (adminUser) {
     redirect("/");
   }
 
