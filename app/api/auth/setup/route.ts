@@ -34,7 +34,8 @@ export async function POST(request: Request) {
       },
     });
 
-    return NextResponse.json({ message: "Admin user created successfully" });
+    // Force a redirect to home page
+    return NextResponse.redirect(new URL("/", request.url));
   } catch (error) {
     console.error("Setup error:", error);
     return NextResponse.json(
