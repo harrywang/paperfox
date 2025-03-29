@@ -42,12 +42,17 @@ export default function SetupForm() {
         }),
       });
 
+      const data = await response.json();
+
       if (!response.ok) {
-        const data = await response.json();
         throw new Error(data.error || "Something went wrong");
       }
 
-      router.push("/signin");
+      if (data.success) {
+        router.push("/signin");
+      } else {
+        throw new Error("Failed to create admin user");
+      }
     } catch (error) {
       setError(error instanceof Error ? error.message : "An error occurred");
     } finally {
