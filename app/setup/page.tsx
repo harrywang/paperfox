@@ -1,8 +1,18 @@
+import { redirect } from "next/navigation";
+import { prisma } from "@/lib/prisma";
 import SetupForm from "./SetupForm";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 
-export default function SetupPage() {
+export default async function SetupPage() {
+  // Check if setup is needed
+  const userCount = await prisma.user.count();
+  
+  // If users exist, redirect to home
+  if (userCount > 0) {
+    redirect("/");
+  }
+
   return (
     <div className="relative min-h-screen flex flex-col">
       <Header />

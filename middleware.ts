@@ -2,35 +2,10 @@ import { NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
 import { NextRequest } from "next/server";
 
-// Check if setup is needed
-async function checkSetup() {
-  try {
-    const response = await fetch(new URL("/api/auth/setup/check", process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"));
-    const data = await response.json();
-    return data.needsSetup;
-  } catch (error) {
-    console.error("Error checking setup status:", error);
-    return false;
-  }
-}
-
 export default async function middleware(request: NextRequest) {
   // Skip middleware for non-matching paths
   if (!request.url.match(config.matcher[0])) {
     return NextResponse.next();
-  }
-
-  // Check if setup is needed
-  const needsSetup = await checkSetup();
-  
-  // If setup is needed and not on setup page, redirect to setup
-  if (needsSetup && !request.url.includes("/setup")) {
-    return NextResponse.redirect(new URL("/setup", request.url));
-  }
-
-  // If setup is not needed and on setup page, redirect to home
-  if (!needsSetup && request.url.includes("/setup")) {
-    return NextResponse.redirect(new URL("/", request.url));
   }
 
   // Check authentication for dashboard routes
