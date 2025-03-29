@@ -36,16 +36,16 @@ export default function DashboardPage() {
             <PanelLeft className="h-5 w-5" />
           </Button>
           <div className="flex-1 flex justify-center lg:justify-start">
-            <Link href="/" className="flex items-center space-x-3 lg:mr-6">
+            <Link href="/" className="flex items-center space-x-2 lg:mr-6">
               <Image
                 src="/paperfox-logo.svg"
                 alt="Paperfox"
-                width={32}
-                height={32}
+                width={28}
+                height={28}
                 className="dark:invert"
                 priority
               />
-              <span className="font-semibold text-lg">PaperFox</span>
+              <span className="font-semibold text-base">PaperFox</span>
             </Link>
           </div>
           <MainNav className="hidden md:flex mx-6" />

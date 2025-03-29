@@ -19,17 +19,17 @@ export function Header() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
         <div className="flex h-14 items-center justify-between">
           <div className="flex items-center">
-            <Link href="/" className="flex items-center space-x-3">
+            <Link href="/" className="flex items-center space-x-2">
               <Image
                 src="/paperfox-logo.svg"
                 alt="Paperfox"
-                width={32}
-                height={32}
+                width={28}
+                height={28}
                 className="dark:invert"
                 priority
                 unoptimized
               />
-              <span className="font-semibold text-lg">PaperFox</span>
+              <span className="font-semibold text-base">PaperFox</span>
             </Link>
           </div>
           
