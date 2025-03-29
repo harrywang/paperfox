@@ -19,10 +19,10 @@ export function AuthNav() {
 
   if (session) {
     return (
-      <div className="flex md:items-center">
+      <div className="flex items-center">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="relative h-8 w-8 rounded-full md:flex hidden">
+            <Button variant="ghost" className="relative h-8 w-8 rounded-full">
               <Avatar className="h-8 w-8">
                 <AvatarImage src={session.user?.image || ""} alt={session.user?.email || ""} />
                 <AvatarFallback>{session.user?.email?.[0].toUpperCase()}</AvatarFallback>

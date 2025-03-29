@@ -12,17 +12,27 @@ import {
   BarChart,
   FileText,
   Bell,
+  X
 } from "lucide-react"
 
-export type SidebarProps = React.HTMLAttributes<HTMLDivElement>;
+export type SidebarProps = React.HTMLAttributes<HTMLDivElement> & {
+  onClose?: () => void;
+};
 
-export function Sidebar({ className }: SidebarProps) {
+export function Sidebar({ className, onClose, ...props }: SidebarProps) {
   return (
-    <div className={cn("h-full border-r", className)}>
+    <div className={cn("h-full border-r bg-background", className)} {...props}>
       <ScrollArea className="h-full">
         <div className="space-y-4 py-4">
           <div className="px-3 py-2">
-            <h2 className="mb-2 px-4 text-lg font-semibold tracking-tight">Dashboard</h2>
+            <div className="mb-4 flex items-center justify-between px-4">
+              <h2 className="text-lg font-semibold tracking-tight">Dashboard</h2>
+              {onClose && (
+                <Button variant="ghost" size="icon" onClick={onClose} className="lg:hidden">
+                  <X className="h-4 w-4" />
+                </Button>
+              )}
+            </div>
             <div className="space-y-1">
               <Button variant="secondary" className="w-full justify-start" asChild>
                 <Link href="/dashboard">
